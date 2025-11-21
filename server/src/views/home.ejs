@@ -157,6 +157,17 @@
             transition: all 0.3s;
             background: #fafafa;
             position: relative;
+            outline: none;
+            display: block;
+        }
+        
+        .upload-area:focus {
+            outline: none;
+        }
+        
+        .upload-area:focus-visible {
+            outline: none;
+            border-color: #667eea;
         }
 
         .upload-area:hover {
@@ -214,6 +225,19 @@
 
         #fileInput {
             display: none;
+            outline: none;
+        }
+        
+        /* Remove any unwanted outlines */
+        *:focus {
+            outline: none;
+        }
+        
+        button:focus-visible,
+        input[type="checkbox"]:focus-visible,
+        .rule-input:focus-visible {
+            outline: 2px solid #667eea;
+            outline-offset: 2px;
         }
 
         .file-selected {
