@@ -19,14 +19,15 @@ Upload any PDF, define 3 custom validation rules, and get instant AI verificatio
 ## 🖼️ Screenshots
 
 ### Home Page
-![Home Page](path/to/homepage-screenshot.png)
+<img width="1897" height="926" alt="Image" src="https://github.com/user-attachments/assets/15243a40-dcca-4d73-b503-267b37d49603" />
 
 ### Results Page - AI Analysis
 <!-- 📌 ADD YOUR IMAGES HERE 📌 -->
 <!-- Replace with your actual image files: -->
-![Analysis Results - Rule 1](attached_assets/image_1763750652195.png)
-![Analysis Results - Rule 2](attached_assets/image_1763750654062.png)
-![Analysis Results - Rule 3](attached_assets/image_1763750655635.png)
+
+<img width="1901" height="915" alt="Image" src="https://github.com/user-attachments/assets/a6b57eee-57ea-4b1c-a756-2f3f82340f4a" />
+
+<img width="1895" height="919" alt="Image" src="https://github.com/user-attachments/assets/86fdfd05-b2de-4a0a-81e6-cb4abbe928ae" />
 
 ---
 
