@@ -26,6 +26,10 @@ app.use(cors());
 app.get('/', (req, res) => {
   res.render('home');
 });
+app.get("/results", (req, res) => {
+    res.render("results");   // results.ejs in views folder
+});
+
 
 app.use('/api/check', checkRouter);
 

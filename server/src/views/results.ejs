@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis Results - MayankAI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #f5f5f7;
+            min-height: 100vh;
+            color: #1d1d1f;
+        }
+
+        /* Navigation */
+        nav {
+            background: white;
+            border-bottom: 1px solid #e5e5e7;
+            padding: 16px 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .back-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #5856d6;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: opacity 0.2s;
+        }
+
+        .back-btn:hover {
+            opacity: 0.7;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .trial-btn {
+            background: #5856d6;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .trial-btn:hover {
+            background: #4745b8;
+        }
+
+        /* Main Content */
+        main {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 24px 80px;
+        }
+
+        /* Header */
+        .results-header {
+            background: white;
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #1d1d1f;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .status-compliant {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .status-non-compliant {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        /* Results Grid */
+        .results-grid {
+            display: grid;
+            gap: 16px;
+        }
+
+        .result-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            border-left: 4px solid transparent;
+        }
+
+        .result-card.pass {
+            border-left-color: #4caf50;
+        }
+
+        .result-card.fail {
+            border-left-color: #f44336;
+        }
+
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            gap: 16px;
+        }
+
+        .rule-text {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1d1d1f;
+            line-height: 1.5;
+        }
+
+        .result-status {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .status-pass {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .status-fail {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .result-section {
+            margin-bottom: 16px;
+        }
+
+        .section-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #6e6e73;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .section-content {
+            font-size: 14px;
+            color: #1d1d1f;
+            line-height: 1.6;
+            padding: 12px;
+            background: #fafafa;
+            border-radius: 8px;
+        }
+
+        /* Confidence Bar */
+        .confidence-wrapper {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #e5e5e7;
+        }
+
+        .confidence-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #6e6e73;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .confidence-bar-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .confidence-bar {
+            flex: 1;
+            height: 8px;
+            background: #e5e5e7;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .confidence-fill {
+            height: 100%;
+            background: #5856d6;
+            border-radius: 4px;
+            transition: width 0.8s ease;
+        }
+
+        .confidence-value {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1d1d1f;
+            min-width: 40px;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 80px 24px;
+        }
+
+        .empty-state-icon {
+            font-size: 64px;
+            margin-bottom: 16px;
+        }
+
+        .empty-state-text {
+            font-size: 18px;
+            color: #6e6e73;
+            margin-bottom: 24px;
+        }
+
+        .btn-primary {
+            background: #5856d6;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: background 0.2s;
+        }
+
+        .btn-primary:hover {
+            background: #4745b8;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .results-header {
+                padding: 24px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .result-card {
+                padding: 20px;
+            }
+
+            .result-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="/" class="back-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+                Back to Checker
+            </a>
+            <div class="nav-right">
+                <button class="trial-btn">Start Free Trial</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <div id="resultsContent"></div>
+    </main>
+
+    <script>
+        // Load results from sessionStorage
+        const resultsData = sessionStorage.getItem('analysisResults');
+
+        if (!resultsData) {
+            // Show empty state if no results
+            document.getElementById('resultsContent').innerHTML = `
+                <div class="empty-state">
+                    <div class="empty-state-icon">📋</div>
+                    <div class="empty-state-text">No analysis results found</div>
+                    <a href="index.html" class="btn-primary">Go to Document Checker</a>
+                </div>
+            `;
+        } else {
+            const data = JSON.parse(resultsData);
+            displayResults(data);
+        }
+
+        function displayResults(data) {
+            const isCompliant = data.overallStatus === 'Compliant';
+            const statusClass = isCompliant ? 'status-compliant' : 'status-non-compliant';
+            const statusIcon = isCompliant ? '✓' : '✗';
+
+            let html = `
+                <div class="results-header">
+                    <h1>Analysis Results</h1>
+                    <div class="status-badge ${statusClass}">
+                        <span>${statusIcon}</span>
+                        <span>${data.overallStatus}</span>
+                    </div>
+                </div>
+
+                <div class="results-grid">
+            `;
+
+            data.results.forEach((result, index) => {
+                const isPassing = result.status === 'pass';
+                const cardClass = isPassing ? 'pass' : 'fail';
+                const statusClass = isPassing ? 'status-pass' : 'status-fail';
+                const statusText = isPassing ? '✓ Pass' : '✗ Fail';
+                const confidence = result.confidence || 0;
+
+                html += `
+                    <div class="result-card ${cardClass}">
+                        <div class="result-header">
+                            <div class="rule-text">${escapeHtml(result.rule)}</div>
+                            <div class="result-status ${statusClass}">${statusText}</div>
+                        </div>
+
+                        <div class="result-section">
+                            <div class="section-label">Evidence</div>
+                            <div class="section-content">${escapeHtml(result.evidence)}</div>
+                        </div>
+
+                        <div class="result-section">
+                            <div class="section-label">Reasoning</div>
+                            <div class="section-content">${escapeHtml(result.reasoning)}</div>
+                        </div>
+
+                        <div class="confidence-wrapper">
+                            <div class="confidence-label">Confidence Score</div>
+                            <div class="confidence-bar-container">
+                                <div class="confidence-bar">
+                                    <div class="confidence-fill" style="width: ${confidence}%"></div>
+                                </div>
+                                <div class="confidence-value">${confidence}%</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += '</div>';
+
+            document.getElementById('resultsContent').innerHTML = html;
+        }
+
+        function escapeHtml(text) {
+            const map = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            };
+            return String(text).replace(/[&<>"']/g, m => map[m]);
+        }
+    </script>
+</body>
+</html>
