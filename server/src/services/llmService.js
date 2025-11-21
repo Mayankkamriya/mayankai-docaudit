@@ -4,7 +4,7 @@ export async function checkDocumentRules(pdfText, rules) {
   const API_KEY = process.env.GEMINI_API_KEY;
   if (!API_KEY) throw new Error("Gemini API key missing");
 
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent?key=${API_KEY}`;
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`;
 
   // Join all rules into a single prompt
   const rulesList = rules.map((r, i) => `${i + 1}. ${r}`).join("\n");
@@ -14,7 +14,10 @@ You are a strict document checker.
 
 Given the PDF TEXT and a list of RULES:
 - Check each rule against the PDF text
-
+- For each rule, return pass or fail
+- Include one evidence line from text
+- Give short reasoning
+- Give confidence score 0-100
 
 PDF TEXT:
 ${pdfText}
