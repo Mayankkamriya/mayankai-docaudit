@@ -38,7 +38,12 @@ app.get('/contact', (req, res) => {
 app.get('/about', (req, res) => {
     res.render('about');
 });
-
+app.get('/terms', (req, res) => {
+    res.render('terms');
+});
+app.get('/privacy', (req, res) => {
+    res.render('privacy');
+});
 
 app.use('/api/check', checkRouter);
 
