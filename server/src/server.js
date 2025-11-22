@@ -31,6 +31,12 @@ app.get("/results", (req, res) => {
     res.render("results");   // results.ejs in views folder
 });
 
+// Static pages
+app.get('/contact', (req, res) => {
+    res.render('contact');
+});
+
+
 
 app.use('/api/check', checkRouter);
 
