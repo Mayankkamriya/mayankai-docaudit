@@ -35,7 +35,9 @@ app.get("/results", (req, res) => {
 app.get('/contact', (req, res) => {
     res.render('contact');
 });
-
+app.get('/about', (req, res) => {
+    res.render('about');
+});
 
 
 app.use('/api/check', checkRouter);
